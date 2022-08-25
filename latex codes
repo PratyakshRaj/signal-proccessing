@@ -334,18 +334,37 @@ and find
 \begin{equation}
 	{\mathcal {Z}}\{x(n-k)\} 
 \end{equation}
-\solution From \eqref{eq:z_trans},
-\begin{align}
-{\mathcal {Z}}\{x(n-1)\} &=\sum _{n=-\infty }^{\infty }x(n-1)z^{-n}
-\\
-&=\sum _{n=-\infty }^{\infty }x(n)z^{-n-1} = z^{-1}\sum _{n=-\infty }^{\infty }x(n)z^{-n}
-\end{align}
-resulting in \eqref{eq:shift1}. Similarly, it can be shown that
-%
+\solution 
 \begin{equation}
-\label{eq:z_trans_shift}
-	{\mathcal {Z}}\{x(n-k)\} = z^{-k}X(z)
+    Z{x(n-1)} = \sum\limits_{n=-\infty}^\infty x(n-1)z^-^n
+    \label{eq:1}
 \end{equation}
+\noindent now put n-1=k
+\begin{equation}
+    Z{x(k)} = \sum\limits_{k=-\infty}^\infty x(k)z^-^k^-^1 \end{equation}
+\begin{equation}
+     Z{x(k)} =z^-^1 \sum\limits_{k=-\infty}^\infty x(k)z^-^k \end{equation}
+\noindent therefore we get
+\begin{equation}
+    Z{x(n-1)}= z^-^1X(z)
+\end{equation}
+\noindent solution eq 4.3
+\begin{equation}
+    Z{x(n-K)} = \sum\limits_{n=-\infty}^\infty x(n-K)z^-^n
+    \label{eq:1}
+\end{equation}
+\noindent now put n-k=t
+\begin{equation}
+    Z{x(t)} = \sum\limits_{t=-\infty}^\infty x(k)z^-^t^-^k \end{equation}
+\begin{equation}
+     Z{x(k)} =z^-^1 \sum\limits_{k=-\infty}^\infty x(k)z^-^k \end{equation}
+\noindent therefore we get
+\begin{equation}
+    Z{x(n-1)}= z^-^1X(z)
+\end{equation}
+
+
+
 \item Obtain $X(z)$ for $x(n)$ defined in problem 
 	\ref{def:xn}.
 \\
@@ -394,10 +413,16 @@ is
 \begin{equation}
 U(z) = \frac{1}{1-z^{-1}}, \quad \abs{z} > 1
 \end{equation}
-\solution It is easy to show that
+\solution 
 \begin{equation}
-\delta(n) \ztrans 1
+    Z[\delta(n)] = \sum\limits_{n=-\infty}^\infty \delta(n)z^-^n
+    \label{eq:1}
 \end{equation}
+\begin{equation}
+    Z[\delta(n)] = \delta(0)z^-^0 = 1
+    \label{eq:1}
+\end{equation}
+
 and from \eqref{eq:unit_step},
 \begin{align}
 U(z) &= \sum _{n= 0}^{\infty}z^{-n}
@@ -414,7 +439,9 @@ a^nu(n) \ztrans \frac{1}{1-az^{-1}} \quad \abs{z} > \abs{a}
 \solution From \eqref{eq:unit_step}, we have,
 \begin{align}
    {\mathcal {Z}}\{a^{n}u(n)\}=\sum_{n=0}^{n=\infty}a^{n}z^{-n}
-   =\frac{1}{1-az^{-1}}
+\end{align}
+\begin{align}
+   {\mathcal {Z}}\{a^{n}u(n)\}=\sum_{n=0}^{n=\infty}{(az^-^1)}^{n}=\frac{1}{1-az^{-1}}
 \end{align}
 using the formula for the sum of an infinite geometric progression.\\
 %
@@ -426,17 +453,84 @@ H\brak{e^{\j \omega}} = H\brak{z = e^{\j \omega}}.
 Plot $\abs{H\brak{e^{\j \omega}}}$.  Comment.  $H(e^{\j \omega})$ is
 known as the {\em Discrete Time Fourier Transform} (DTFT) of $x(n)$.
 \\
-\solution The following code plots Fig. \ref{fig:dtft}.
+\solution yes.it is periodic with period of 2$\pi$ \\
+The following code plots Fig. \ref{fig:dtft}.
 \begin{lstlisting}
-wget https://raw.githubusercontent.com/gadepall/EE1310/master/filter/codes/dtft.py
+wget https://github.com/PratyakshRaj/signal-proccessing/blob/main/ccode.c
 \end{lstlisting}
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=\columnwidth]{./figs/dtft}
+\includegraphics[width=\columnwidth]{./figs/4.6.png}
 \caption{$\abs{H\brak{e^{\j\omega}}}$}
 \label{fig:dtft}
 \end{figure}
 \end{enumerate}
+
+\item 
+4.7
+\item Express $h(n)$ in terms of $H\brak{e^{\j \omega}}$.\\
+\solution
+Since $H\brak{e^{\j \omega}}$ is the DTFT of $h\brak{n}$,
+\begin{align}
+	H\brak{e^{\j \omega}} = \sum _{n=-\infty }^{\infty }h\brak{n}e^{-\j \omega n}
+\end{align}
+Multiplying both sides with $e^{\j \omega n}$ and integrating we get
+\begin{align}
+	\int_{-\pi}^{\pi}H\brak{e^{\j \omega}} e^{\j \omega k} d\omega&= \sum_{n=-\infty }^{\infty }h\brak{n}\int{-\pi}^{\pi}e^{-\j \omega n} e^{\j \omega k}
+\end{align}
+Case 1: $n \neq k$
+\begin{align}
+	\int_{-\pi}^{\pi}H\brak{e^{\j \omega}} e^{\j \omega k} d\omega&= \sum_{n=-\infty }^{\infty }h\brak{n}\int{-\pi}^{\pi}e^{-\j \omega n} e^{\j \omega k}d\omega \\
+	&=\sum _{n=-\infty }^{\infty }h\brak{n}\frac{e^{\j \pi \brak{k-n}}- e^{-\j \pi \brak{k-n}}}{\j \brak{k-n}}\\
+	&=0
+\end{align}
+
+Case 2: $n = k$
+\begin{align}
+	\int_{-\pi}^{\pi}H\brak{e^{\j \omega}} e^{\j \omega k} d\omega&= \sum{n=-\infty }^{\infty }h\brak{n}\int{-\pi}^{\pi}e^{-\j \omega n} e^{\j \omega k}d\omega \\
+	&=\sum_{n=-\infty }^{\infty }h\brak{n}\int{-\pi}^{\pi}d\omega \\
+	&= 2\pi
+\end{align}
+\begin{align}
+	&\implies \int_{-\pi}^{\pi}H\brak{e^{\j \omega}} e^{\j \omega k} d\omega =2\pi h\brak{n}\\
+	&\implies h\brak{n} = \frac{1}{2\pi} \int_{0}^{2\pi} H\brak{e^{\j \omega}}e^{\j \omega n} d\omega
+\end{align}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Impulse Response}
 \begin{enumerate}[label=\thesection.\arabic*]
 \item \label{prob:impulse_resp}
@@ -454,7 +548,7 @@ system defined by \eqref{eq:iir_filter}.
 H(z) &= \frac{1}{1 + \frac{1}{2}z^{-1}} + \frac{ z^{-2}}{1 + \frac{1}{2}z^{-1}}
 \\
 \implies h(n) &= \brak{-\frac{1}{2}}^{n}u(n) + \brak{-\frac{1}{2}}^{n-2}u(n-2)
-\end{align}
+\end{align}\s
 using \eqref{eq:anun} and \eqref{eq:z_trans_shift}.
 \item Sketch $h(n)$. Is it bounded? Convergent? 
 \\
